@@ -10,7 +10,8 @@ originUrl=$(git config --get remote.origin.url)
 # https://github.com/hsiangfeng/HexfootMusic.git
 # 通常來講走 SSH 可能會出現 GitHub Public Keys 錯誤，這部分 Google 一下就可以解決囉。
 
-nowStatus=${originUrl:0:5}
+# nowStatus=${originUrl:0:5} => bad substitution error
+newStatus='https'
 echo $nowStatus
 if [ $nowStatus = 'https' ]
 then
