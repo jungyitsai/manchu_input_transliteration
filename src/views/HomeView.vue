@@ -785,65 +785,76 @@ export default {
   },
   methods: {
     convertText() {
-      if (this.convertMethod === "Möllendorff") {
-        let cleanInputText = this.inputText.toLowerCase();
-        let charList = cleanInputText.split("");
-        let convCharList = [];
-        let skipIndexList = [];
+      let converTable = -1;
+      switch (this.convertMethod) {
+        case "Möllendorff":
+          converTable = this.mollenCharList;
+          break;
+        case "Abkai":
+          converTable = this.abkaiCharList;
+          break;
+        case "CMCD":
+          converTable = this.cmcdCharList;
+          break;
+        default:
+          converTable = this.mollenCharList;
+      }
 
-        for (let index = 0; index < charList.length; ++index) {
-          if (skipIndexList.includes(index)) {
-            continue;
-          }
-          let item = charList[index];
+      let cleanInputText = this.inputText.toLowerCase();
+      let charList = cleanInputText.split("");
+      let convCharList = [];
+      let skipIndexList = [];
 
-          // console.log(item, index);
+      for (let index = 0; index < charList.length; ++index) {
+        if (skipIndexList.includes(index)) {
+          continue;
+        }
+        let item = charList[index];
 
-          if (item === " " || item === "\n") {
-            convCharList.push(item);
-            continue;
-          }
+        // console.log(item, index);
 
-          // three char case
-          let endIndex = Math.min(index + 3, charList.length);
-          let subStr = cleanInputText.slice(index, endIndex);
-          if (subStr.length == 3) {
-            let subStrIndex = this.mollenCharList.indexOf(subStr);
-            // console.log("subStrIndex", subStrIndex, subStr);
-            if (subStrIndex >= 0) {
-              // console.log("subStrIndex", this.manchuCharList[subStrIndex]);
-              convCharList.push(this.manchuCharList[subStrIndex]);
-              skipIndexList.push(index + 1);
-              skipIndexList.push(index + 2);
-            }
-          }
+        if (item === " " || item === "\n") {
+          convCharList.push(item);
+          continue;
+        }
 
-          // two char case
-          endIndex = Math.min(index + 2, charList.length);
-          subStr = cleanInputText.slice(index, endIndex);
-          if (subStr.length == 2) {
-            let subStrIndex = this.mollenCharList.indexOf(subStr);
-            // console.log("subStrIndex", subStrIndex, subStr);
-            if (subStrIndex >= 0) {
-              // console.log("subStrIndex", this.manchuCharList[subStrIndex]);
-              convCharList.push(this.manchuCharList[subStrIndex]);
-              skipIndexList.push(index + 1);
-            }
-          }
-
-          // one char case
-          let subStrIndex = this.mollenCharList.indexOf(item);
+        // three char case
+        let endIndex = Math.min(index + 3, charList.length);
+        let subStr = cleanInputText.slice(index, endIndex);
+        if (subStr.length == 3) {
+          let subStrIndex = converTable.indexOf(subStr);
+          // console.log("subStrIndex", subStrIndex, subStr);
           if (subStrIndex >= 0) {
+            // console.log("subStrIndex", this.manchuCharList[subStrIndex]);
             convCharList.push(this.manchuCharList[subStrIndex]);
+            skipIndexList.push(index + 1);
+            skipIndexList.push(index + 2);
+            continue;
           }
         }
 
-        return convCharList.join("");
-      } else if (this.convertMethod === "Abkai") {
-        console.log("hi");
-      } else if (this.convertMethod === "CMCD") {
-        console.log("hi");
+        // two char case
+        endIndex = Math.min(index + 2, charList.length);
+        subStr = cleanInputText.slice(index, endIndex);
+        if (subStr.length == 2) {
+          let subStrIndex = converTable.indexOf(subStr);
+          // console.log("subStrIndex", subStrIndex, subStr);
+          if (subStrIndex >= 0) {
+            // console.log("subStrIndex", this.manchuCharList[subStrIndex]);
+            convCharList.push(this.manchuCharList[subStrIndex]);
+            skipIndexList.push(index + 1);
+            continue;
+          }
+        }
+
+        // one char case
+        let subStrIndex = converTable.indexOf(item);
+        if (subStrIndex >= 0) {
+          convCharList.push(this.manchuCharList[subStrIndex]);
+        }
       }
+
+      return convCharList.join("");
     },
   },
 };
