@@ -1,7 +1,7 @@
 # manchu_input_transliteration
 
 ## Demo Page
-- [demo-page...not ready]()
+- [demo-page](https://jungyitsai.github.io/manchu_input_transliteration/)
 
 ## Project setup
 ```
