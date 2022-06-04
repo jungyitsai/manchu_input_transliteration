@@ -1,0 +1,26 @@
+@font-face {
+	font-family: 'Mongolian Universal White';
+    src: local('Mongolian Universal White'), url('MongolianUniversalWhite.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'BitheGoth';
+    src: local('☺'), url('BITHE3.ttf') format('truetype');
+}
+
+
+@font-face {
+	font-family: 'Moukan Goth 12';
+    src: local('☺'), url('MOUKAN.ttf') format('truetype');
+}
+
+
+@font-face {
+	font-family: 'Setuon Goth 12';
+    src: local('☺'), url('SOGOTH12.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Todo_rom';
+    src: local('☺'), url('TODO_ROM.TTF') format('truetype');
+}
