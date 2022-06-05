@@ -3,7 +3,12 @@
     <!-- As a heading -->
     <nav class="navbar navbar-light bg-light">
       <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">Manchu Input Transliteration</span>
+        <a
+          class="navbar-brand"
+          href="https://github.com/jungyitsai/manchu_input_transliteration"
+          target="_blank"
+          >Manchu Input Transliteration Repository</a
+        >
       </div>
     </nav>
     <div class="container">
@@ -710,6 +715,10 @@
         </table>
       </div>
     </div>
+    <div class="footer">
+      &copy;
+      <span>Jung-Yi, Tsai </span>
+    </div>
   </div>
 </template>
 
@@ -872,5 +881,14 @@ td {
 }
 a {
   text-decoration: none;
+}
+
+.footer,
+.push {
+  height: 50px; /* .push must be the same height as .footer */
+}
+.footer {
+  background-color: #dddddd;
+  padding: 15px;
 }
 </style>
