@@ -61,7 +61,12 @@
           </div>
 
           <div class="row">
-            <textarea rows="10" v-model="outputText" readonly></textarea>
+            <textarea
+              id="manchu_text"
+              rows="10"
+              v-model="outputText"
+              readonly
+            ></textarea>
           </div>
         </div>
       </div>
@@ -731,13 +736,16 @@ export default {
     return {
       inputText: "",
       convertMethod: "Möllendorff",
+      convertMethodList: ["Möllendorff", "Abkai", "CMCD"],
       mollenCharList: [],
       abkaiCharList: [],
       cmcdCharList: [],
       manchuCharList: [],
+      query: "",
     };
   },
   mounted() {
+    this.query = this.$route.query;
     // console.log("hi");
     //gets table
     var oTable = document.getElementById("myTable");
@@ -785,6 +793,28 @@ export default {
           this.manchuCharList.push(cellVal);
         }
       }
+    }
+
+    // parse query for converting single word
+    if (this.query["word"] && this.query["input_method"]) {
+      console.log(this.query);
+      let is_match = this.convertMethodList.indexOf(this.query["input_method"]);
+
+      console.log(is_match);
+      if (is_match >= 0) {
+        this.convertMethod = this.query["input_method"];
+      } else {
+        return;
+      }
+
+      // if not single word, then return
+      let seq_len = this.query["word"].split(" ");
+      console.log(seq_len);
+      if (seq_len > 1) {
+        return;
+      }
+
+      this.inputText = this.query["word"];
     }
   },
   computed: {
